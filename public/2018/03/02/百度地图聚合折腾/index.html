@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="magicyou" />
+
+
+<meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,magicyou">
+
+
+
+
+<meta name="description" content="被客户爸爸折腾了好久，最后终于做出基本满意的“热力图”">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度地图聚合折腾">
+<meta property="og:url" content="https://magicyou.github.io/2018/03/02/百度地图聚合折腾/index.html">
+<meta property="og:site_name" content="MagicYou">
+<meta property="og:description" content="被客户爸爸折腾了好久，最后终于做出基本满意的“热力图”">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://blog.magicyou.cn/img/map1.jpg">
+<meta property="og:image" content="http://blog.magicyou.cn/img/map2.jpg">
+<meta property="og:image" content="http://blog.magicyou.cn/img/map3.jpg">
+<meta property="og:image" content="http://blog.magicyou.cn/img/map4.jpg">
+<meta property="og:updated_time" content="2018-03-02T10:12:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="百度地图聚合折腾">
+<meta name="twitter:description" content="被客户爸爸折腾了好久，最后终于做出基本满意的“热力图”">
+<meta name="twitter:image" content="http://blog.magicyou.cn/img/map1.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="MagicYou" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>百度地图聚合折腾 | MagicYou</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/a524faafjw1e8qgp5bmzyj2050050aa8.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">magicyou</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=uIqMi46MjIyLjfjJyZbb19U" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/2770664111/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS3/">CSS3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JQ/">JQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VUE/">VUE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaScript/">javaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lamp/">lamp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lump/">lump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpstudy/">phpstudy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://Magicyou/">MagicYou</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">magicyou</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/a524faafjw1e8qgp5bmzyj2050050aa8.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">magicyou</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=uIqMi46MjIyLjfjJyZbb19U" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/2770664111/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-百度地图聚合折腾" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/02/百度地图聚合折腾/" class="article-date">
+      <time datetime="2018-03-02T10:12:45.000Z" itemprop="datePublished">2018-03-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      百度地图聚合折腾
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>被客户爸爸折腾了好久，最后终于做出基本满意的“热力图”<br><a id="more"></a><br> 起初做的热力图，但是来回反复测试百度地图热力图和echars热力图+百度地图，终究不满足客户爸爸，原因很简单某些地区放大后，为什么啥也没有了，为什么？为什么？mmmp不知当讲不当讲，热力图放大数据稀疏的地方当然不明显，遂开始改热力图各种配置，渐变色，透明度，无奈怎么也不满足。最后技术总监说干脆用某某项目的聚合算了，接着就进入了正题百度地图–聚合折腾之路。</p>
+<h3 id="百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到"><a href="#百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到" class="headerlink" title="百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到"></a>百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到</h3><p> #####贴一下官方的简单说明<br>|类    | 描述 |<br>| - | - |<br>|BMapLib.MarkerClusterer(map, options)|MarkerClusterer|</p>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>返回值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>addMarker(marker)</td>
+<td>None</td>
+<td>添加一个聚合的标记。</td>
+</tr>
+<tr>
+<td>addMarkers(markers)</td>
+<td>None</td>
+<td>添加要聚合的标记数组。</td>
+</tr>
+<tr>
+<td>clearMarkers()</td>
+<td>None</td>
+<td>从地图上彻底清除所有的标记</td>
+</tr>
+<tr>
+<td>getClustersCount()</td>
+<td>Number</td>
+<td>获取聚合的总数量。</td>
+</tr>
+<tr>
+<td>getGridSize()</td>
+<td>Number</td>
+<td>获取网格大小</td>
+</tr>
+<tr>
+<td>getMap()</td>
+<td>Map</td>
+<td>获取聚合的Map实例。</td>
+</tr>
+<tr>
+<td>getMarkers()</td>
+<td>Array</td>
+<td>获取所有的标记数组。</td>
+</tr>
+<tr>
+<td>getMaxZoom()</td>
+<td>Number</td>
+<td>获取聚合的最大缩放级别。</td>
+</tr>
+<tr>
+<td>getMinClusterSize()</td>
+<td>Number</td>
+<td>获取单个聚合的最小数量。</td>
+</tr>
+<tr>
+<td>getStyles()</td>
+<td>Array</td>
+<td>获取聚合的样式风格集合</td>
+</tr>
+<tr>
+<td>isAverageCenter()</td>
+<td>Boolean</td>
+<td>获取单个聚合的落脚点是否是聚合内所有标记的平均中心。</td>
+</tr>
+<tr>
+<td>removeMarker(marker)</td>
+<td>Boolean</td>
+<td>删除单个标记</td>
+</tr>
+<tr>
+<td>removeMarkers(markers)</td>
+<td>Boolean</td>
+<td>删除一组标记</td>
+</tr>
+<tr>
+<td>setGridSize(size)</td>
+<td>None</td>
+<td>设置网格大小</td>
+</tr>
+<tr>
+<td>setMaxZoom(maxZoom)</td>
+<td>None</td>
+<td>设置聚合的最大缩放级别</td>
+</tr>
+<tr>
+<td>setMinClusterSize(size)</td>
+<td>None</td>
+<td>设置单个聚合的最小数量。</td>
+</tr>
+<tr>
+<td>setStyles(styles)</td>
+<td>None</td>
+<td>设置聚合的样式风格集合</td>
+</tr>
+</tbody>
+</table>
+<p>事实上要不是逼急一般人不会来这里看这些文档，百度地图的demo基本上就够用。<br>由于数据量巨大，本项目的就有十三万数据，一股脑显示在地图上之后来回缩放，发现….卡,卡到没朋友，还有就是这十三万数据从服务器传送到前端耗时十多秒赶上网速不好就得挂在半路500错误码。<br>无奈之下的继续优化，终于在苦苦搜索之后找到了网上大神的优化代码 (<a href="https://blog.csdn.net/ztop_f/article/details/55256003" target="_blank" rel="noopener">传送门</a>)，不得不说效率确实大增，但是，优化后依然扛不住13万的数据。将来的数据可不止13万。进一步优化。<br>结合网上的仿照链家等地图找房例子（<a href="https://blog.csdn.net/u013705066/article/details/55511430" target="_blank" rel="noopener">传送门</a>），规划这样的方案：<br>1.进行区域划分，省、市、区对应不同的地图等级显示不同等级的数据，这样起码就解决的全国数据时有十三万的尴尬，这样折合下来全国数据也就30多条，效率不言而喻的高！<br>2.省、市、区级别之后进行自动聚合，就是百度地图真正的聚合。<br>3.为了避免数据多余营销效率，每次请求只请求可视区域内的数据。</p>
+<p>然后是甩锅到本渣渣这里，开始自我猜想：<br>1.地图要做到拖动请求，缩放请求<br>2.每次请求都要知道现在的地图缩放级别是多少，以便判断当前是省、市、区<br>3.每次请求还要有地图可视的区域经纬度<br>4.省市区要用地图的自定义覆盖物，Label是个不错的选择<br>5.请求数据地图级别省市区的时候，数据要包含行政区域名称，人数，经纬度<br>基本上是这样，然后开始搞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">获取地图缩放级别</span><br><span class="line">var zoom = map.getZoom();  // 直接返回数字1-20吧好像</span><br><span class="line"></span><br><span class="line">获取可视区域的经纬度</span><br><span class="line">getBounds()</span><br><span class="line">用法</span><br><span class="line">var bs = map.getBounds();     // 获取可视区域</span><br><span class="line">var bssw = bs.getSouthWest(); // bssw.lng, bssw.lat</span><br><span class="line">var bsne = bs.getNorthEast(); // bsne.lng, bsne.lat</span><br></pre></td></tr></table></figure></p>
+<h5 id="添加文本标注label"><a href="#添加文本标注label" class="headerlink" title="添加文本标注label"></a>添加文本标注label</h5><p>Label(content: String, opts: LabelOptions)<br>创建一个文本标注实例。point参数指定了文本标注所在的地理位置<br>|方法|返回值|    描述|<br>|setStyle(styles: Object)|none|设置文本标注样式，该样式将作用于文本标注的容器元素上。其中styles为JavaScript对象常量，比如： setStyle({ color : “red”, fontSize : “12px” }) 注意：如果css的属性名中包含连字符，需要将连字符去掉并将其后的字母进行大写处理，例如：背景色属性要写成：backgroundColor|<br>|setContent(content: String)|none|设置文本标注的内容。支持HTML|<br>|setPosition(position: Point)|none|设置文本标注坐标。仅当通过Map.addOverlay()方法添加的文本标注有效|</p>
+<p>然后就是代码说事儿</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> BMap.Map(<span class="string">"echars_heatmap"</span>, &#123;<span class="attr">minZoom</span>:<span class="number">5</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> BMapLib = <span class="built_in">window</span>.BMapLib = BMapLib || &#123;&#125;;		</span><br><span class="line"><span class="keyword">var</span> Page = &#123;</span><br><span class="line">        init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.initMap();</span><br><span class="line">            <span class="keyword">this</span>.echarsHeatmap(<span class="keyword">this</span>.data.heatmapDatas);</span><br><span class="line">        &#125;,</span><br><span class="line">	    data:&#123;</span><br><span class="line">	    	timerMapGetdata：<span class="literal">null</span>,</span><br><span class="line">	    	zoom: <span class="number">5</span>,</span><br><span class="line">	    	condition:&#123;</span><br><span class="line">	    		zoom: <span class="number">5</span>,</span><br><span class="line">                level: <span class="number">1</span>,</span><br><span class="line">	    	&#125;,</span><br><span class="line">            markerClusterer: <span class="literal">null</span>,</span><br><span class="line">            heatmapDatas: &#123;</span><br><span class="line">                centerPoint: <span class="literal">null</span>,</span><br><span class="line">                points: <span class="literal">null</span>,</span><br><span class="line">                lengthMax: <span class="number">0</span></span><br><span class="line">            &#125;,</span><br><span class="line">	    &#125;,</span><br><span class="line">	    <span class="comment">// 初始化地图触发事件</span></span><br><span class="line">        initMap:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">            <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(<span class="number">116.403981</span>, <span class="number">39.91571</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 设置中心点坐标和地图级别 5全国 10省</span></span><br><span class="line">            map.centerAndZoom(point, <span class="number">5</span>); </span><br><span class="line"></span><br><span class="line">            <span class="comment">// 允许滚轮缩放</span></span><br><span class="line">            map.enableScrollWheelZoom(); </span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 获取地图的当前缩放级别</span></span><br><span class="line">            _this.data.zoom = map.getZoom(); </span><br><span class="line"></span><br><span class="line"> 			<span class="comment">// 地图缩放事件，每次缩放都要重新触发获取视野内新数据</span></span><br><span class="line">            map.addEventListener(<span class="string">'zoomend'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'缩放事件:'</span>);</span><br><span class="line">                <span class="comment">// 事件触发优化，防止短时间内多次触发事件频繁请求数据，造成服务器压力，同时也为了用户体验</span></span><br><span class="line">                clearTimeout(_this.data.timerMapGetdata);</span><br><span class="line">                _this.data.timerMapGetdata = <span class="literal">null</span>;</span><br><span class="line">                _this.data.timerMapGetdata = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    _this.getHeatData();</span><br><span class="line">                &#125;, <span class="number">300</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line"> 			<span class="comment">// 地图拖动事件，每次拖动地图，地图的可视区域都会变化，都要重新触发获取视野内新数据</span></span><br><span class="line">            map.addEventListener(<span class="string">"moveend"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'拖动事件:'</span>);</span><br><span class="line">                <span class="comment">// 事件触发优化，防止短时间内多次触发事件频繁请求数据，造成服务器压力，同时也为了用户体验</span></span><br><span class="line">                clearTimeout(_this.data.timerMapGetdata);</span><br><span class="line">                _this.data.timerMapGetdata = <span class="literal">null</span>;</span><br><span class="line">                _this.data.timerMapGetdata = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    _this.getHeatData();</span><br><span class="line">                &#125;, <span class="number">300</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">         getHeatData: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">// layer弹窗插件，加载弹窗</span></span><br><span class="line">            layer.load(<span class="number">1</span>, &#123;</span><br><span class="line">                shade: [<span class="number">0.1</span>, <span class="string">'#fff'</span>],</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">//获取可视区域</span></span><br><span class="line">            <span class="keyword">var</span> bs = map.getBounds();   </span><br><span class="line">            <span class="keyword">var</span> bssw = bs.getSouthWest();</span><br><span class="line">            <span class="keyword">var</span> bsne = bs.getNorthEast();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取地图缩放级别，并且划分请求级别</span></span><br><span class="line">            <span class="keyword">var</span> zoom = map.getZoom();</span><br><span class="line">            <span class="keyword">var</span> level = (zoom &lt; <span class="number">8</span>) ? <span class="number">1</span> : ((zoom &gt;= <span class="number">8</span> &amp;&amp; zoom &lt;= <span class="number">11</span>) ? <span class="number">2</span> : ((zoom &gt; <span class="number">11</span> &amp;&amp; zoom &lt; <span class="number">15</span>) ? <span class="number">3</span> : <span class="number">4</span>));</span><br><span class="line">            _this.data.level = level;</span><br><span class="line">            _this.data.condition[<span class="string">'level'</span>] = level;</span><br><span class="line">            _this.data.condition[<span class="string">'left'</span>] = bssw.lng;</span><br><span class="line">            _this.data.condition[<span class="string">'top'</span>] = bssw.lat;</span><br><span class="line">            _this.data.condition[<span class="string">'right'</span>] = bsne.lng;</span><br><span class="line">            _this.data.condition[<span class="string">'bottom'</span>] = bsne.lat;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                url: <span class="string">''</span>,</span><br><span class="line">                data: &#123;</span><br><span class="line">                    condition: _this.data.condition</span><br><span class="line">                &#125;,</span><br><span class="line">                type: <span class="string">'POST'</span>,</span><br><span class="line">                success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">                    layer.closeAll();</span><br><span class="line"> 					</span><br><span class="line"> 					<span class="comment">// 重新渲染地图</span></span><br><span class="line">                    _this.data.heatmapDatas.points = res.data;</span><br><span class="line">                    _this.data.heatmapDatas.lengthMax = res.max;</span><br><span class="line">                    _this.echarsHeatmap(_this.data.heatmapDatas);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 热力图</span></span><br><span class="line">        echarsHeatmap: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">            <span class="keyword">var</span> points = obj.points ? obj.points : [];</span><br><span class="line">            _this.data.zoom = map.getZoom();</span><br><span class="line">            <span class="keyword">var</span> zoom = <span class="built_in">Number</span>(_this.data.zoom);</span><br><span class="line">            <span class="keyword">var</span> level = _this.data.level;</span><br><span class="line">            <span class="comment">// 清除覆盖物</span></span><br><span class="line">            map.clearOverlays();</span><br><span class="line">            <span class="keyword">if</span>(_this.markerClusterer) &#123;</span><br><span class="line">                _this.markerClusterer.clearMarkers();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 1.当请求级别是4的时候，百度地图自动集合；</span></span><br><span class="line">            <span class="comment">// 2.当请求级别小于4，使用后台做聚合查询，前端label展示。</span></span><br><span class="line">            <span class="keyword">if</span> (level != <span class="number">4</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; points.length; i++) &#123;</span><br><span class="line">                    _this.addLabel(points[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">var</span> markers = [];</span><br><span class="line">                <span class="keyword">var</span> pt = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; points.length; i++) &#123;</span><br><span class="line">                    pt = <span class="keyword">new</span> BMap.Point(points[i].lng, points[i].lat);</span><br><span class="line">                    <span class="keyword">var</span> maker = <span class="keyword">new</span> BMap.Marker(pt);</span><br><span class="line">                    maker.setTitle(points[i].macs);</span><br><span class="line">                    markers.push(maker);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。</span></span><br><span class="line">                <span class="keyword">var</span> tt1 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">                _this.markerClusterer = <span class="keyword">new</span> BMapLib.MarkerClusterer(map, &#123;<span class="attr">markers</span>:markers&#125;);</span><br><span class="line">                <span class="keyword">var</span> tt2 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 添加覆盖物</span></span><br><span class="line">        addLabel: <span class="function"><span class="keyword">function</span>(<span class="params">pointObj</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> zoom = <span class="built_in">Number</span>(<span class="keyword">this</span>.data.zoom);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(pointObj.longitude, pointObj.latitude);</span><br><span class="line">            <span class="keyword">var</span> label = <span class="keyword">new</span> BMap.Label();</span><br><span class="line">            label.setStyle(&#123;</span><br><span class="line">                maxWidth: <span class="string">'none'</span>,</span><br><span class="line">                color:<span class="string">"#fff"</span>,                   <span class="comment">//颜色</span></span><br><span class="line">                fontSize:<span class="string">"12px"</span>,               <span class="comment">//字号</span></span><br><span class="line">                border:<span class="string">"0"</span>,                    <span class="comment">//边</span></span><br><span class="line">                borderRadius: <span class="string">'50%'</span>,</span><br><span class="line">                height:<span class="string">"60px"</span>,                <span class="comment">//高度</span></span><br><span class="line">                width:<span class="string">"60px"</span>,                 <span class="comment">//宽</span></span><br><span class="line">                textAlign:<span class="string">"center"</span>,            <span class="comment">//文字水平居中显示</span></span><br><span class="line">                background: <span class="string">"#F99D32"</span>,</span><br><span class="line">                cursor:<span class="string">"pointer"</span>,</span><br><span class="line">                position: <span class="string">"absolute"</span>,</span><br><span class="line">                left: <span class="string">"-60px"</span>,</span><br><span class="line">                top: <span class="string">"-60px"</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> content = <span class="string">'&lt;p style="text-align:center;margin-top:16px;"&gt;'</span>+ pointObj.name +<span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">                content += <span class="string">'&lt;p style="text-align:center;"&gt;'</span>+ pointObj.macs +<span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">            label.setContent(content);</span><br><span class="line">            label.setPosition(point);</span><br><span class="line">            label.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  <span class="comment">//拖动事件</span></span><br><span class="line">                map.centerAndZoom(point, zoom+<span class="number">2</span>)</span><br><span class="line">            &#125;);</span><br><span class="line">            map.addOverlay(label);</span><br><span class="line">        &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>后台用的php，这里贴上sql说明一下问题就行</p>
+<p>当请求级别是小于4的时候，sql如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">接受参数：</span><br><span class="line">conditioin:&#123;</span><br><span class="line">  level: 1,</span><br><span class="line">  left: 110.329288,</span><br><span class="line">  right: 119.895882,</span><br><span class="line">  top:31.356779,</span><br><span class="line">  bottom: 36.253414</span><br><span class="line">&#125;</span><br><span class="line">简要说明：</span><br><span class="line">当请求级别小于4的时候，后台数据要做聚合处理，从user表查询出所有人数，通过‘order by city’做分组聚合处理（根据请求级别 省1:state，市2:city，区3:country），然后关联address表（tf_address_region表存储中国所有的省市区对应的名字、经纬度，具体表结构和sql文件在最下边展示与下载）查询出每个地址对应的经纬度</span><br><span class="line">*/</span><br><span class="line">SELECT A.NAME,</span><br><span class="line">	A.LEVEL,</span><br><span class="line">	A.longitude,</span><br><span class="line">	A.latitude,</span><br><span class="line">	b.member_skey </span><br><span class="line">FROM</span><br><span class="line">	tf_address_region A,</span><br><span class="line">	(</span><br><span class="line">	SELECT</span><br><span class="line">		city, /*省1:state，市2:city，区3:country*/</span><br><span class="line">		COUNT ( 1 ) member_skey </span><br><span class="line">	FROM</span><br><span class="line">		td_user </span><br><span class="line">	WHERE</span><br><span class="line">		( </span><br><span class="line">			AND ( latitude &lt;&gt; &apos;&apos; AND longitude IS NOT NULL ) </span><br><span class="line">			AND ( latitude BETWEEN 31.356779 AND 36.253414 AND longitude BETWEEN 110.329288 AND 119.895882 ) </span><br><span class="line">		) </span><br><span class="line">	GROUP BY</span><br><span class="line">		city  /*省1:state，市2:city，区3:country*/</span><br><span class="line">	) b </span><br><span class="line">WHERE</span><br><span class="line">	( b.city = A.NAME ) /*省1:state，市2:city，区3:country*/</span><br></pre></td></tr></table></figure>
+<p>当请求级别是4的时候，sql如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">接受参数：</span><br><span class="line">conditioin:&#123;</span><br><span class="line">  level: 4,</span><br><span class="line">  left: 113.622692</span><br><span class="line">  right: 113.697431</span><br><span class="line">  top:34.739694,</span><br><span class="line">  bottom: 34.775282</span><br><span class="line">&#125;</span><br><span class="line">简要说明：</span><br><span class="line">当请求级别等于4的时候，后台数据不要做聚合处理，直接从user表查询出所有人数，聚合工作直接给百度地图处理</span><br><span class="line">*/</span><br><span class="line">SELECT</span><br><span class="line">	longitude lng,</span><br><span class="line">	latitude lat,</span><br><span class="line">	COUNT ( 1 ) member_skey </span><br><span class="line">FROM</span><br><span class="line">	td_user</span><br><span class="line">WHERE</span><br><span class="line">	( </span><br><span class="line">		AND ( latitude &lt;&gt; &apos;&apos; AND longitude IS NOT NULL ) </span><br><span class="line">		AND ( latitude BETWEEN 34.739694 AND 34.775282 AND longitude BETWEEN 113.622692 AND 113.697431 ) </span><br><span class="line">	) </span><br><span class="line">GROUP BY</span><br><span class="line">	latitude,</span><br><span class="line">	longitude</span><br></pre></td></tr></table></figure>
+<h5 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h5><p><img src="http://blog.magicyou.cn/img/map1.jpg" alt="map1"><br><img src="http://blog.magicyou.cn/img/map2.jpg" alt="map2"><br><img src="http://blog.magicyou.cn/img/map3.jpg" alt="map3"><br><img src="http://blog.magicyou.cn/img/map4.jpg" alt="map4"></p>
+<h5 id="附加address表的说明："><a href="#附加address表的说明：" class="headerlink" title="附加address表的说明："></a>附加address表的说明：</h5><p>表结构：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>bigint(11)</td>
+<td>表id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar(32)</td>
+<td>地区名称</td>
+</tr>
+<tr>
+<td>level</td>
+<td>tinyint(4)</td>
+<td>地区等级 分省市县区</td>
+</tr>
+<tr>
+<td>pid</td>
+<td>bigint(10)</td>
+<td>父id</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>float</td>
+<td>百度坐标，经度</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>float</td>
+<td>百度坐标，纬度</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://blog.csdn.net/u013705066/article/details/55511430" target="_blank" rel="noopener">下载地址</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/03/02/百度地图聚合折腾/">百度地图聚合折腾</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">magicyou</a></p>
+        <p><span>发布时间:</span>2018-03-02, 18:12:45</p>
+        <p><span>最后更新:</span>2018-03-02, 18:12:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/02/百度地图聚合折腾/" title="百度地图聚合折腾">https://magicyou.github.io/2018/03/02/百度地图聚合折腾/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://magicyou.github.io/2018/03/02/百度地图聚合折腾/　　作者: magicyou" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/08/20171108/">
+                    碰到的VUE的几个小知识补充
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到"><span class="toc-number">1.</span> <span class="toc-text">百度地图的聚合在文档里不太好找，在百度地图开源库里才能找到</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方法"><span class="toc-number">1.0.1.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加文本标注label"><span class="toc-number">1.0.2.</span> <span class="toc-text">添加文本标注label</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#效果图"><span class="toc-number">1.0.3.</span> <span class="toc-text">效果图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#附加address表的说明："><span class="toc-number">1.0.4.</span> <span class="toc-text">附加address表的说明：</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+           <!--  <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+ -->            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <!-- <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a> -->
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"百度地图聚合折腾　| MagicYou　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/03/02/百度地图聚合折腾/" data-title="百度地图聚合折腾" data-url="https://magicyou.github.io/2018/03/02/百度地图聚合折腾/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"http://duoshuo.com/create-site/magicyou"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/11/08/20171108/" title="下一篇: 碰到的VUE的几个小知识补充">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/03/02/百度地图聚合折腾/">百度地图聚合折腾</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/08/20171108/">碰到的VUE的几个小知识补充</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/08/python_001_string/">python之字符串篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/20170612/">密码强度检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/20170325/">自己的一套多图上传</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/15/20170215/">js美化html上传按钮控件的方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/01/20170418/">css常用片段</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/20170120/">手动实现移动端确认框（阿里开源的SUI Mobile框架的操作表）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/09/20161209/">可拖拽的弹出框</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/01/20161201/">无限分页设计与实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/20/20160910/">lamp/lnmp搭建+typecho搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/09/20160909/">放大镜的设计与实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/01/20160901/">电梯导航</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/24/20160824/">轮播图（4）--基于JQ的3D轮播设计与实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/17/20160817/">轮播图（3）--基于jQ的左右缓动焦点究极版</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/20160810/">轮播图（2）--基于JQ的左右缓动</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/03/20160803/">轮播图（1）--原生js的淡入淡出</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/14/20160714/">购物车的加减</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 magicyou
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

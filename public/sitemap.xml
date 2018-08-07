@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://magicyou.github.io/2017/10/08/python_001_string/</loc>
+    <loc>https://magicyou.github.io/tags/index.html</loc>
     
-    <lastmod>2017-10-09T12:40:56.000Z</lastmod>
+    <lastmod>2018-08-06T08:26:02.267Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://magicyou.github.io/about/index.html</loc>
     
-    <lastmod>2017-10-05T09:25:34.231Z</lastmod>
+    <lastmod>2018-08-06T08:26:02.266Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://magicyou.github.io/2018/03/02/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E8%81%9A%E5%90%88%E6%8A%98%E8%85%BE/</loc>
+    
+    <lastmod>2018-03-02T10:12:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://magicyou.github.io/2017/10/08/python_001_string/</loc>
+    
+    <lastmod>2017-10-09T12:40:56.000Z</lastmod>
     
   </url>
   
@@ -54,13 +68,6 @@
     <loc>https://magicyou.github.io/2017/01/20/20170120/</loc>
     
     <lastmod>2017-01-20T14:22:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://magicyou.github.io/tags/index.html</loc>
-    
-    <lastmod>2016-12-21T05:48:50.350Z</lastmod>
     
   </url>
   
