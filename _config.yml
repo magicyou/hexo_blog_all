@@ -13,7 +13,7 @@ keywords: 前端博客,JavaScript,html5,css3,Jquery,magicyou
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://magicyou.github.io
+url: https://blog.magicyou.cn/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -64,14 +64,22 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yelee
+theme: maupassant
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+# deploy:
+#   type: git
+#   repository: git@github.com:magicyou/magicyou.github.io.git
+#   branch: master 
 deploy:
   type: git
-  repository: git@github.com:magicyou/magicyou.github.io.git
-  branch: master 
+  repo:
+    github: git@github.com:magicyou/magicyou.github.io.git,master
+    tencent: git@git.dev.tencent.com:magicYou/magicYou.git,master
+  
 
 sitemap:
   path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml

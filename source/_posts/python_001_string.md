@@ -3,7 +3,8 @@
 title: python之字符串篇
 date: 2017-10-08 20:12:45
 updated: 2017-10-09 20:40:56
-tags: [python]
+tags: [Python]
+categories: [Python]
 ---
 python自学之路
 <!--more-->
